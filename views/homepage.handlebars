@@ -1,0 +1,11 @@
+{{#each postings as |post|}}
+<section class="container">
+    <div class="title">
+        <h2 class="top-header" style="display: inline">{{post.title}}</h2>
+        <h5 class="user">Posted by {{user.username}} on {{post.date_created}}</h5>
+    </div>
+    <div>
+        <h4 class="text">{{post.content}}</h4>
+    </div>
+</section>
+{{/each}}
