@@ -15,7 +15,7 @@ Posting.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        body: {
+        content: {
             type: DataTypes.TEXT,
             allowNull: true,
         },
@@ -25,8 +25,7 @@ Posting.init(
             defaultValue: DataTypes.NOW,
         },
         user_id: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            type: DataTypes.INTEGER,
             references: {
                 model: 'user',
                 key: 'id',
