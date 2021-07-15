@@ -37,7 +37,6 @@ router.get('/post/:id', async (req, res) => {
                 },
             ],
         });
-        console.log(postingData)
         if (!postingData) {
             console.log("no posting data")
             return
@@ -46,8 +45,23 @@ router.get('/post/:id', async (req, res) => {
         const posting = postingData.get({ plain: true})
         console.log(posting)
 
+        const commentData = await Comment.findAll({
+            include: [
+                {
+                    model: User,
+                    attributes: ['username'],
+                },
+            ],
+            where: {
+                post_id: req.params.id
+            }
+        });
+
+        const comments = commentData.map((comment) => comment.get({ plain: true }));
+
         res.render('post', {
             posting,
+            comments,
             // logged_in: req.session.logged_in
         });
     } catch (err) {
