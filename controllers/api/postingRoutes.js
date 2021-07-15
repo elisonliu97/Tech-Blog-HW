@@ -1,74 +1,66 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Posting } = require('../../models');
 
-// Route to sign up a new user
+// ROUTE TO MAKE NEW POSTINGS
 router.post('/', async (req, res) => {
     try {
-        // create new user in database
-        const userData = await User.create(req.body);
-
-        // save session with user id and logged in status
-        req.session.save(() => {
-            req.session.user_id = userData.id;
-            req.session.logged_in = true;
-            res.status(200).json(userData);
+        const newPosting = await Posting.create({
+            ...req.body,
+            user_id: req.session.user_id,
         });
+
+        res.status(200).json(newPosting);
     } catch (err) {
         res.status(500).json(err)
     }
-})
+});
 
-// Route to log in 
-router.post('/login', async (req, res) => {
+// ROUTE TO UPDATE POSTINGS
+router.put('/:id', async (req, res) => {
+    console.log('route', req.body)
     try {
-        // look for user by email
-        const userData = await User.findOne(
+        const postingData = await Posting.update(
             {
-                where:
-                    { email: req.body.email }
+                current_bid: req.body.current_bid,
+                bidder_id: req.session.user_id,
+            },
+            {
+                where: {
+                    id: req.params.id,
+                }
             }
         );
+        console.log(postingData)
 
-        // if user doesnt exist
-        if (!userData) {
-            res
-                .status(400)
-                .json({ message: 'Incorrect email or password, please try again' });
-            return;
+        if (!postingData) {
+            res.status(404).json({ message: 'POSTING NOT FOUND' });
+        } else {
+            res.status(200).json({ message: 'POSTING UPDATED' })
         }
-
-        // check password for user
-        const validPassword = await userData.checkPassword(req.body.password);
-
-        // if password doesn't match
-        if (!validPassword) {
-            res
-                .status(400)
-                .json({ message: 'Incorrect email or password, please try again' });
-            return;
-        }
-
-        // log user in if all is correct
-        req.session.save(() => {
-            req.session.user_id = userData.id;
-            req.session.logged_in = true;
-
-            res.json({ user: userData, message: 'You are now logged in!' });
-        });
-
     } catch (err) {
-        res.status(400).json(err);
+        res.status(500).json(err);
     }
 });
 
-// route to log out
-router.post('/logout', (req, res) => {
-    if (req.session.logged_in) {
-        req.session.destroy(() => {
-            res.status(204).end();
+// ROUTE TO DELETE POSTINGS
+router.delete('/:id', async (req, res) => {
+    try {
+        const postingData = await Posting.destroy({
+            where: {
+                id: req.params.id,
+                user_id: req.session.user_id,
+            },
         });
-    } else {
-        res.status(404).end();
+
+        // IF POSTING NOT FOUND
+        if (!postingData) {
+            res.status(404).json({ message: "NO POSTING FOUND" });
+            return
+        } else {
+            res.status(200).json(postingData)
+        }
+    } catch (err) {
+        res.status(500).json(err)
     }
 });
 
