@@ -44,4 +44,4 @@ Comment.init(
     }
 );
 
-module.exports = Posting;
+module.exports = Comment;

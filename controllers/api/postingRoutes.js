@@ -17,12 +17,11 @@ router.post('/', async (req, res) => {
 
 // ROUTE TO UPDATE POSTINGS
 router.put('/:id', async (req, res) => {
-    console.log('route', req.body)
     try {
         const postingData = await Posting.update(
             {
-                current_bid: req.body.current_bid,
-                bidder_id: req.session.user_id,
+                title: req.body.title,
+                content: req.body.content,
             },
             {
                 where: {
