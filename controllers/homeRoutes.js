@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Posting, User } = require('../models');
 // const withAuth = require('../utils/auth');
 
+// homepage route
 router.get('/', async (req, res) => {
     try {
 
@@ -26,12 +27,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// dashboard route
+router.get('/dashboard', async (req, res) => {
+
+});
+
+// login page route
 router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
       res.redirect('/');
       return;
     }
-  
     res.render('login');
   });
   
