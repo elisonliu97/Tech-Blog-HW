@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Posting, User } = require('../models');
+const { Posting, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 // homepage route
@@ -43,7 +43,6 @@ router.get('/post/:id', withAuth, async (req, res) => {
         }
 
         const posting = postingData.get({ plain: true})
-        console.log(posting)
 
         const commentData = await Comment.findAll({
             include: [
@@ -71,8 +70,32 @@ router.get('/post/:id', withAuth, async (req, res) => {
 
 // dashboard route
 router.get('/dashboard', withAuth, async (req, res) => {
+    const postingData = await Posting.findAll({
+        include: [
+            {
+                model: User,
+                attributes: ['username'],
+            },
+        ],
+        where: {
+            user_id: req.session.user_id
+        }
+    });
 
+    const postings = postingData.map((posting) => posting.get({ plain: true }));
+
+    res.render('dashboard', {
+        postings,
+        logged_in: req.session.logged_in
+    });
 });
+
+// newpost route
+router.get('/newpost', withAuth, async (req, res) => {
+    res.render('newpost', {
+        logged_in: req.session.logged_in
+    })
+})
 
 // login page route
 router.get('/login', (req, res) => {
