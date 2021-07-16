@@ -21,43 +21,45 @@ router.post('/', async (req, res) => {
 // ROUTE TO LOG IN EXISTING USERS
 router.post('/login', async (req, res) => {
     try {
-        // gets user data based on email
-        const userData = await User.findOne({
-            where: {
-                email: req.body.email
+        // look for user by email
+        const userData = await User.findOne(
+            {
+                where:
+                    { email: req.body.email }
             }
-        });
+        );
 
-        // no user by that email exists, send message
+        // if user doesnt exist
         if (!userData) {
-            res.status(400).json({
-                message: "INCORRECT EMAIL OR PASSWORD"
-            });
+            res
+                .status(400)
+                .json({ message: 'Incorrect email or password, please try again' });
             return;
         }
 
-        // checks if passsword is correct
-        const corrPass = await userData.checkPassword(req.body.password)
+        // check password for user
+        const validPassword = await userData.checkPassword(req.body.password);
 
-        // if password is incorrect, send message
-        if (!corrPass) {
-            res.status(400).json({
-                message: "INCORRECT EMAIL OR PASSWORD"
-            });
+        // if password doesn't match
+        if (!validPassword) {
+            res
+                .status(400)
+                .json({ message: 'Incorrect email or password, please try again' });
             return;
         }
 
-        // if both are correct, saves user id and logs user in
+        // log user in if all is correct
         req.session.save(() => {
             req.session.user_id = userData.id;
             req.session.logged_in = true;
-            
+
             res.json({ user: userData, message: 'You are now logged in!' });
-          });
+        });
+
     } catch (err) {
-        res.status(500).json(err);
+        res.status(400).json(err);
     }
-})
+});
 
 // ROUTE TO LOG OUT USER
 router.post('/logout', (req, res) => {

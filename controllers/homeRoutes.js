@@ -62,7 +62,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
         res.render('post', {
             posting,
             comments,
-            // logged_in: req.session.logged_in
+            logged_in: req.session.logged_in
         });
     } catch (err) {
         res.status(500).json(err);
@@ -76,7 +76,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 // login page route
 router.get('/login', (req, res) => {
-    if (req.session.loggedIn) {
+    if (req.session.logged_in) {
       res.redirect('/');
       return;
     }
