@@ -7,3 +7,13 @@
         <h4 class="text">{{posting.content}}</h4>
     </div>
 </section>
+{{#each comments as |comment|}}
+<section>
+        <div class="title">
+        <h5 class="user">Posted by {{user.username}} on {{comment.date_created}}</h5>
+    </div>
+    <div>
+        <h4 class="text">{{comment.content}}</h4>
+    </div>
+</section>
+{{/each}}

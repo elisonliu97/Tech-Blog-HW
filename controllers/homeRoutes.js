@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Posting, User } = require('../models');
-// const withAuth = require('../utils/auth');
+const withAuth = require('../utils/auth');
 
 // homepage route
 router.get('/', async (req, res) => {
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
         res.render('homepage', {
             postings,
-            // logged_in: req.session.logged_in
+            logged_in: req.session.logged_in
         });
     } catch (err) {
         res.status(500).json(err);
@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
 });
 
 // specific post route
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:id', withAuth, async (req, res) => {
     try {
         const postingData = await Posting.findByPk(req.params.id, {
             include: [
@@ -70,7 +70,7 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // dashboard route
-router.get('/dashboard', async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
 
 });
 
