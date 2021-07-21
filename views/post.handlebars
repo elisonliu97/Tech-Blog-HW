@@ -7,10 +7,6 @@
         <h4 class="text">{{posting.content}}</h4>
     </div>
 </section>
-{{!-- if req.session.user_id = user_id on comment --}}
-{{!-- display a button to either edit or delete --}}
-{{!-- if edit then go to edit post page --}}
-{{!-- if delete then use delete post route --}}
 
 <form class="add-comment-form">
     <label>Add Comment</label>
@@ -25,6 +21,9 @@
     <div>
         <h4 class="text">{{comment.content}}</h4>
     </div>
+    {{#if comment.from_user}}
+    <button><a href="/editcomment/{{comment.id}}">EDIT</a></button>
+    {{/if}}
 </section>
 {{!-- if req.session.user_id = user_id on comment --}}
 {{!-- display a button to either edit or delete --}}

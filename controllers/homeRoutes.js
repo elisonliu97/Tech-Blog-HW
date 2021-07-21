@@ -56,12 +56,19 @@ router.get('/post/:id', withAuth, async (req, res) => {
             }
         });
 
-        const comments = commentData.map((comment) => comment.get({ plain: true }));
+        const commentWithout = commentData.map((comment) => comment.get({ plain: true }));
+        
+        const comments = commentWithout.map((comment) => {
+            comment.from_user = (comment.user_id === req.session.user_id)
+            return comment
+        });
+        console.log(comments)
 
         res.render('post', {
             posting,
             comments,
-            logged_in: req.session.logged_in
+            logged_in: req.session.logged_in,
+            user_id: req.session.user_id
         });
     } catch (err) {
         res.status(500).json(err);
