@@ -1,12 +1,15 @@
 const newFormHandler = async (event) => {
     event.preventDefault();
 
+    const urlSplit = (document.location.href).split('/')
+    const post_id = urlSplit[urlSplit.length -1]
+
     const title = document.querySelector('#title').value.trim();
     const content = document.querySelector('#content').value.trim();
 
     if (title && content) {
-        const response = await fetch(`/api/posts`, {
-            method: 'POST',
+        const response = await fetch(`/api/posts/${post_id}`, {
+            method: 'PUT',
             body: JSON.stringify({ title, content }),
             headers: {
                 'Content-Type': 'application/json',

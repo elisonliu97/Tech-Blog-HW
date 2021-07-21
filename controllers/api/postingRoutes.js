@@ -1,6 +1,28 @@
 const router = require('express').Router();
 const { User, Posting } = require('../../models');
 
+// // ROUTE TO GET SPECIFIC POSTING
+// router.get('/:id', async (req, res) => {
+//     try {
+//         const postingData = await Posting.findByPk(req.params.id, {
+//             include: [
+//                 {
+//                     model: User,
+//                     attributes: ['username'],
+//                 },
+//             ],
+//         });
+//         if (!postingData) {
+//             res.status(404).json("NO POST DATA")
+//         }
+//         const posting = postingData.get({ plain: true})
+//         res.status(200).json(posting)
+//     } catch (err) {
+//         res.status(500).json(err)
+//     }
+// })
+
+
 // ROUTE TO MAKE NEW POSTINGS
 router.post('/', async (req, res) => {
     try {

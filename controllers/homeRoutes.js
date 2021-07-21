@@ -97,6 +97,34 @@ router.get('/newpost', withAuth, async (req, res) => {
     })
 })
 
+// editpost route
+router.get('/editpost/:id', withAuth, async (req, res) => {
+    try {
+        const postingData = await Posting.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['username'],
+                },
+            ],
+        });
+        if (!postingData) {
+            console.log("no posting data")
+            return
+        }
+
+        const posting = postingData.get({ plain: true})
+
+        res.render('editpost', {
+            posting,
+            logged_in:req.session.logged_in,
+            post_id: req.params.id
+        })
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
 // login page route
 router.get('/login', (req, res) => {
     if (req.session.logged_in) {

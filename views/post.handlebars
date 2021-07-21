@@ -7,6 +7,16 @@
         <h4 class="text">{{posting.content}}</h4>
     </div>
 </section>
+{{!-- if req.session.user_id = user_id on comment --}}
+{{!-- display a button to either edit or delete --}}
+{{!-- if edit then go to edit post page --}}
+{{!-- if delete then use delete post route --}}
+
+<form class="add-comment-form">
+    <label>Add Comment</label>
+    <input type="text" id="comment-box">
+    <button type="submit">OK</button>
+</form>
 {{#each comments as |comment|}}
 <section>
         <div class="title">
@@ -16,4 +26,9 @@
         <h4 class="text">{{comment.content}}</h4>
     </div>
 </section>
+{{!-- if req.session.user_id = user_id on comment --}}
+{{!-- display a button to either edit or delete --}}
+{{!-- if edit then go to edit comment page --}}
+{{!-- if delete then use delete comment route --}}
 {{/each}}
+<script src="/js/post.js"></script>
