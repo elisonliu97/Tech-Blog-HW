@@ -132,6 +132,34 @@ router.get('/editpost/:id', withAuth, async (req, res) => {
     }
 })
 
+// edit comment route
+router.get('/editcomment/:id', withAuth, async (req,res) => {
+    try {
+        const commentData = await Comment.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['username'],
+                },
+            ],
+        });
+        if (!commentData) {
+            console.log("no comment data")
+            return
+        }
+        
+        const comment = commentData.get({ plain: true })
+
+        res.render('editcomment', {
+            comment,
+            logged_in: req.session.logged_in,
+            comment_id: req.params.id
+        });
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+
 // login page route
 router.get('/login', (req, res) => {
     if (req.session.logged_in) {
