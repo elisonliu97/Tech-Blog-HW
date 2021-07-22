@@ -43,6 +43,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
         }
 
         const posting = postingData.get({ plain: true})
+        posting.from_user = (posting.user_id === req.session.user_id)
 
         const commentData = await Comment.findAll({
             include: [
@@ -62,7 +63,6 @@ router.get('/post/:id', withAuth, async (req, res) => {
             comment.from_user = (comment.user_id === req.session.user_id)
             return comment
         });
-        console.log(comments)
 
         res.render('post', {
             posting,
@@ -121,6 +121,8 @@ router.get('/editpost/:id', withAuth, async (req, res) => {
         }
 
         const posting = postingData.get({ plain: true})
+        console.log(posting)
+        // if (req.session.user_id !==)
 
         res.render('editpost', {
             posting,

@@ -1,6 +1,6 @@
 <button><a href="/newpost">New Post</a></button>
 {{#each postings as |post|}}
-<section class="container">
+{{!-- <section class="container">
     <a href="/post/{{post.id}}">
         <div class="title">
             <h2 class="top-header" style="display: inline">{{post.title}}</h2>
@@ -11,5 +11,22 @@
         </div>
     </a>
     <button><a href="/editpost/{{post.id}}">EDIT</a></button>
+</section> --}}
+
+
+<section class="container">
+    <div class="card text-center">
+        <a href="/post/{{post.id}}">
+            <div class="card-header">
+                {{post.title}}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{post.content}}</p>
+            </div>
+            <div class="card-footer text-muted">
+                Posted by {{user.username}} on {{post.date_created}}
+            </div>
+        </a>
+    </div>
 </section>
 {{/each}}

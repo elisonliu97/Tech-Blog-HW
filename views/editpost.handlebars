@@ -3,11 +3,11 @@
         <h2>Edit Post <span id="post-id">{{post_id}}</span></h2>
         <div>
             <label>Title</label>
-            <input type="text" id="title" value={{posting.title}}>
+            <textarea id="title">{{posting.title}}</textarea>
         </div>
         <div>
             <label>Content</label>
-            <input type="text" id="content" value={{posting.content}}>
+            <textarea id="content">{{posting.content}}</textarea>
         </div>
         <button type="submit" value="submit">POST</button>
     </div>

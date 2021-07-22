@@ -16,7 +16,11 @@
         </div>
         <div class="card-footer text-muted">
             Posted by {{user.username}} on {{posting.date_created}}
+            {{#if posting.from_user}}
+            <button class="btn btn-primary"><a href="/editpost/{{posting.id}}">EDIT</a></button>
+            {{/if}}
         </div>
+
         </a>
     </div>
 </section>
