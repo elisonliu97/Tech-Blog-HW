@@ -1,33 +1,63 @@
 <section class="container">
-    <div class="title">
+    {{!-- <div class="title">
         <h2 class="top-header" style="display: inline">{{posting.title}}</h2>
         <h5 class="user">Posted by {{posting.user.username}} on {{posting.date_created}}</h5>
     </div>
     <div>
         <h4 class="text">{{posting.content}}</h4>
+    </div> --}}
+
+    <div class="card text-center">
+        <div class="card-header">
+            {{posting.title}}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{posting.content}}</p>
+        </div>
+        <div class="card-footer text-muted">
+            Posted by {{user.username}} on {{posting.date_created}}
+        </div>
+        </a>
     </div>
 </section>
 
-<form class="add-comment-form">
-    <label>Add Comment</label>
-    <input type="text" id="comment-box">
-    <button type="submit">OK</button>
-</form>
-{{#each comments as |comment|}}
-<section>
-        <div class="title">
+
+<section class="container">
+    <form class="add-comment-form">
+        <div class="form-group">
+            <label>Add Comment</label>
+            <input type="text" class="form-control" id="comment-box">
+            <button type="submit" class="btn btn-primary">OK</button>
+        </div>
+    </form>
+</section>
+
+
+
+
+<section class="container">
+    <h2>Comments</h2>
+    {{#each comments as |comment|}}
+    {{!-- <div class="title">
         <h5 class="user">Posted by {{user.username}} on {{comment.date_created}}</h5>
     </div>
     <div>
         <h4 class="text">{{comment.content}}</h4>
+    </div> --}}
+
+    <div class="card text-center">
+        <div class="card-body">
+            <p class="card-text">{{comment.content}}</p>
+        </div>
+        <div class="card-footer text-muted">
+            Posted by {{user.username}} on {{comment.date_created}}
+            {{#if comment.from_user}}
+            <button class="btn btn-primary"><a href="/editcomment/{{comment.id}}">EDIT</a></button>
+            {{/if}}
+        </div>
+
     </div>
-    {{#if comment.from_user}}
-    <button><a href="/editcomment/{{comment.id}}">EDIT</a></button>
-    {{/if}}
+    {{/each}}
 </section>
-{{!-- if req.session.user_id = user_id on comment --}}
-{{!-- display a button to either edit or delete --}}
-{{!-- if edit then go to edit comment page --}}
-{{!-- if delete then use delete comment route --}}
-{{/each}}
+
 <script src="/js/post.js"></script>
