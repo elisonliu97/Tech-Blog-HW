@@ -1,18 +1,18 @@
 <form class="add-post-form">
     <div>
-        <h2>Edit Post <span id="post-id">{{post_id}}</span></h2>
-        <div>
+        <h2>Edit Post</h2>
+        <div class="form-group">
             <label>Title</label>
-            <textarea id="title">{{posting.title}}</textarea>
+            <textarea class="form-input" id="title">{{posting.title}}</textarea>
         </div>
-        <div>
+        <div class="form-group">
             <label>Content</label>
-            <textarea id="content">{{posting.content}}</textarea>
+            <textarea class="form-input" id="content">{{posting.content}}</textarea>
         </div>
-        <button type="submit" value="submit">POST</button>
+        <button class="btn btn-primary" type="submit" value="submit">POST</button>
     </div>
 </form>
 
-<button id="delete-post-btn">DELETE</button>
+<button class="btn btn-primary" id="delete-post-btn">DELETE</button>
 
 <script src="/js/editpost.js"></script>

@@ -1,14 +1,14 @@
 <form class="add-post-form">
     <div>
-        <h2>Edit Post <span id="post-id">{{comment_id}}</span></h2>
+        <h2>Edit Comment</h2>
         <div>
             <label>Content</label>
-            <textarea id="content">{{comment.content}}</textarea>
+            <textarea class="form-input" id="content">{{comment.content}}</textarea>
         </div>
-        <button type="submit" value="submit">EDIT</button>
+        <button class='btn btn-primary' type="submit" value="submit">EDIT</button>
     </div>
 </form>
 
-<button id="delete-post-btn">DELETE</button>
+<button class="btn btn-primary" id="delete-post-btn">DELETE</button>
 
 <script src="/js/editcomment.js"></script>

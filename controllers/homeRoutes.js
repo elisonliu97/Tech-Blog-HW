@@ -121,8 +121,11 @@ router.get('/editpost/:id', withAuth, async (req, res) => {
         }
 
         const posting = postingData.get({ plain: true})
-        console.log(posting)
-        // if (req.session.user_id !==)
+
+        if (req.session.user_id !== posting.user_id) {
+            res.redirect('/');
+            return
+        }
 
         res.render('editpost', {
             posting,
@@ -151,6 +154,10 @@ router.get('/editcomment/:id', withAuth, async (req,res) => {
         }
         
         const comment = commentData.get({ plain: true })
+        if (req.session.user_id !== comment.user_id) {
+            res.redirect('/');
+            return
+        }
 
         res.render('editcomment', {
             comment,
