@@ -1,7 +1,7 @@
 # Tech-Blog-HW
 
 ## Description
-This is a web application to help track budget. The application saves transactions that you input into an online database. If there is no internet connection, it will save the transactions to cache, until the application is back online. Once the application is back online, it will send in the transactions to be saved in the database.
+This is a blog style website in which users can sign up and log in to post their thoughts. Each post has its own comment section, and the user can update or delete their own posts or comments. There is authentification functions in place such that users cannot access most of the features without logging in.
 
 ## Table of Contents
   - [Installation](#installation)
@@ -10,22 +10,19 @@ This is a web application to help track budget. The application saves transactio
   - [Contact me](#questions)
 
 ## Installation
+This application requires a back end mysql database. 
 To run this application locally, clone this repository and install the dependencies using
 `npm i`
+Create a .env file with the information needed about the database.
 To run the server, run this command in the terminal:
 `npm start`
   
 ## Usage
-To use the application, go to the [deployed link](https://budget-tracker-el.herokuapp.com/).
-At the top of the page, there is your total budget.
-Fill in the fields required, such as a name for the transaction and the amount.
-To add to your budget, click the add funds button to add the amount of the transaction to your total.
-To subtract from your budget, click on the subtract funds button.
-There is a chart, as well as a graph, that tracks your most recent transactions.
-The application will still work offline as it is stored in the cache. When transactions are entered offline, they are stored in the cache until the application is line.
-Once the application is online again, it will update the database with the entries in the cache.
-  - [Deployed Application](https://budget-tracker-el.herokuapp.com//)
-  - [Video Demo](https://drive.google.com/file/d/1WBWNN5C-0XDNcZiVW4EMAYT5o9gqlPsH/view)
+To use the application, go to the [deployed link](https://tech-blog-el.herokuapp.com/).
+The homepage consists of all the posts ever posted. To access many features, the user must first either sign up or log in.
+When the user is logged in, they can check out specific posts by clicking on the post. They can then choose to add comments, or if they are the original poster of the post, they can edit the post or delete it.
+The user can see all their posts on their dashboard. They can also add new posts by going to their dashboard and clicking the add post button.
+  - [Deployed Application](https://tech-blog-el.herokuapp.com/)
 
 ![image](https://user-images.githubusercontent.com/28275237/126917164-026cdd11-bd85-4c4f-bc50-2d1deed589c0.png)
 ![image](https://user-images.githubusercontent.com/28275237/126917170-3e90d2bc-21e1-4af9-bd14-525633009acc.png)
